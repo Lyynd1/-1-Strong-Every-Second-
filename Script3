@@ -1,0 +1,157 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+   Name = "Project Kitten(+1 Strong Every Second 💪)",
+   LoadingTitle = "Project Kitten Free Hub",
+   LoadingSubtitle = "by Lyynd#0009",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "RXj5yGq58u", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+Rayfield:Notify({
+   Title = "loading The Script",
+   Content = "This Take about 10 sec don't worry",
+   Duration = 4,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Close",
+         Callback = function()
+         print("Welcome to the Free Project Kitten Script")
+         end
+   },
+},
+})
+
+local Tab = Window:CreateTab("Main Farm", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Farming")
+
+local isToggled = false
+local connection = nil
+
+local function executeAutoLift()
+	game:GetService("Players").LocalPlayer.Character.BasicDumbell.Dumbell.RemoteEvent:FireServer()
+end
+
+
+local Toggle = Tab:CreateToggle({
+    Name = "Auto Lift",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        isToggled = Value
+        if isToggled then
+            connection = game:GetService("RunService").Heartbeat:Connect(function()
+                executeAutoLift()
+            end)
+        else
+            if connection then
+                connection:Disconnect()
+            end
+        end
+    end,
+})
+
+local isToggled = false
+local connection = nil
+
+local function executeAutoTrain()
+game:GetService("Players").LocalPlayer.Character.Yumruk.Punch.RemoteEvent:FireServer()
+end
+local Label = Tab:CreateLabel("If you want X2 auto train go to punch bag and toggle Auto Train!")
+local Toggle = Tab:CreateToggle({
+    Name = "Auto Train X2",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        isToggled = Value
+        if isToggled then
+            connection = game:GetService("RunService").Heartbeat:Connect(function()
+                executeAutoTrain()
+            end)
+        else
+            if connection then
+                connection:Disconnect()
+            end
+        end
+    end,
+})
+
+local Label = Tab:CreateLabel("To get the multi for each island, you go to the last island, and you take the back portale to go on desert. You will get X12")
+
+local Dropdown = Tab:CreateDropdown({
+    Name = "Teleport Island",
+    Options = {"Moon","Candy","Lava", "Ice", "Desert", "Void" },
+    CurrentOption = {"Option 1"},
+    MultipleOptions = false,
+    Flag = "TeleportDropdown",
+    Callback = function(Option)
+        if Option[1] == "Moon" then
+            local pos = Vector3.new(601.86792, 919.90918)
+            local cf = CFrame.new(pos.x, pos.y, pos.z)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cf
+        end
+        
+        if Option[1] == "Candy" then
+            local pos = Vector3.new(1263.51685, 919.580933)
+            local cf = CFrame.new(pos.x, pos.y, pos.z)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cf
+        end
+        
+        if Option[1] == "Lava" then
+            local pos = Vector3.new(1856.90625, 919.90918)
+            local orientation = CFrame.new(0, 1, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(pos) * orientation
+        end
+        
+		if Option[1] == "Ice" then
+            local pos = Vector3.new(2531.74561, 919.90918, -7)
+            local orientation = CFrame.new(0, 1, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(pos) * orientation
+        end
+        
+        if Option[1] == "Desert" then
+            local pos = Vector3.new(3221.57617, 919.90918)
+            local orientation = CFrame.new(0, 1, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(pos) * orientation
+        end
+        
+        if Option[1] == "Void" then
+            local pos = Vector3.new(3978.19897, 919.90918, -6)
+            local orientation = CFrame.new(0, 1, 0, 1, 0, 0, 0, 0, -1, 0, 1, 0)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(pos) * orientation
+        end
+	end
+  
+})
+
+local Label = Tab:CreateLabel("I recommend to farm at the last island, the king is useless because of the x5, while you can get X12")
+
+local Slider = Tab:CreateSlider({
+   Name = "Slider Example",
+   Range = {0, 100},
+   Increment = 10,
+   Suffix = "WalkSpeed",
+   CurrentValue = 10,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+   end,
+})
